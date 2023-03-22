@@ -8,7 +8,7 @@ const components = [
             id: 'tree',
             type: 'node',
             icon: 'font-size',
-            title: '文本',
+            title: 'tree',
             view: 3,
             family: 'tree',
             des: '基础的tree组件',
@@ -37,13 +37,12 @@ let options = {
 let files = [],
     area = 'vue-element';
 filesName.forEach((fileName) => {
-    let content = require('fs').readFileSync(
-        file + (typeof fileName == 'string' ? fileName : fileName.name)
-    );
+    let name = typeof fileName == 'string' ? fileName : fileName.name;
+    let content = require('fs').readFileSync(file + name);
     let buffer = Buffer.from(content);
     //@ts-ignore
     files.push({
-        fileName,
+        name,
         content: buffer.toString(),
     });
 });
@@ -54,6 +53,7 @@ let componentsConfig = components.map((item) => {
         area,
     };
 });
+console.log('files', files);
 request(
     {
         ...options,

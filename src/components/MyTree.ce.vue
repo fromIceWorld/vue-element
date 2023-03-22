@@ -86,6 +86,9 @@ let index = 0;
       }
     },
     methods:{
+      setLoading(){
+
+      },
       handleNodeClick (data){
         console.log(data)
         this.$emit('someEvent')
@@ -94,9 +97,11 @@ let index = 0;
         console.log(data, checked, indeterminate)
       }
     },
+    index : 0,
+    tagNamePrefix:'my-tree',
     get configurable(){
       return {
-        className:'MyTreeComponent',
+        className:'MyTree',
         html:{
           showCheckbox:{
             type: 'boolean',
@@ -111,13 +116,21 @@ let index = 0;
           classes: '',
           style: {},
         },
+        component: {
+          event: [{ label: 'click', value: 'click' }],
+          methods: [
+            { label: 'setTree', value: 'setTree' },
+            { label: 'setLoading', value: 'setLoading' },
+          ],
+          data: ['tree'],
+          params: [],
+        },
       }
     },
     extends(option){
       const {html,css,className} = option;
-      let id = index++,
-          tagName = `${tagNamePrefix}-${id}`;
-      console.log(id,tagName);
+      let id = window['MyTree'].index++,
+          tagName = `${window['MyTree'].tagNamePrefix}-${id}`;
       let config = {};
       Object.keys(html)
         .map((key) => {
@@ -127,7 +140,7 @@ let index = 0;
       return {
         tagName:`${tagName}`,
         // vue 前缀
-        html:`<${tagName} pre="_instance.ctx._.data"></${tagName}>`,
+        html:`<${tagName} _data="_instance.ctx._.data" _methods="_instance.ctx"></${tagName}>`,
         js:`class MyTree${id} extends MyTreeComponent{
               constructor(){
                 super();
@@ -155,6 +168,7 @@ let index = 0;
   :data="tree" 
   :props="defaultProps"
   node-key="id"
+  highlight-current
   :default-expanded-keys="expandedKeys"
   :default-checked-keys="checkedkeys"
    @node-click="handleNodeClick"  

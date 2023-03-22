@@ -16,8 +16,12 @@ const MyVueTree = defineCustomElement(MyTree);
 console.log('MyTree', MyTree);
 
 // vue 打包完的web component 形式不统一，需改造。
-// @ts-ignore
-MyVueTree.extends = MyTree.extends;
+// // @ts-ignore
+// MyVueTree.extends = MyTree.extends;
+// // @ts-ignore
+// MyVueTree.configurable = MyTree.configurable;
+// // @ts-ignore
+// MyVueTree.configurable = MyTree.configurable;
 (window as any)['VueDefineCustomElement'] = defineCustomElement;
 (window as any)['MyTreeComponent'] = MyVueTree;
 (window as any)['MyTree'] = MyTree;
