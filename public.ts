@@ -7,10 +7,12 @@ const components = [
         {
             id: 'tree',
             type: 'node',
-            icon: 'font-size',
-            title: 'tree',
+            icon: 'partition',
+            title: `树形控件:
+                        vue@3+element-plus`,
             view: 3,
             family: 'tree',
+            color: '#41b883',
             des: '基础的tree组件',
             component: 'MyTree',
         },
