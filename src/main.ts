@@ -7,10 +7,11 @@ import App from './App.vue';
 const app = createApp(App);
 
 app.use(ElementPlus);
-let vm = app.mount('#app');
+// 阻止子应用挂载，会影响集成环境
+// let vm = app.mount('#app');
 
 // @ts-ignore
-window['vm'] = vm;
+// window['vm'] = vm;
 // 定义web component
 const MyVueTree = defineCustomElement(MyTree);
 console.log('MyTree', MyTree);
