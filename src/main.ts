@@ -14,7 +14,6 @@ app.use(ElementPlus);
 // window['vm'] = vm;
 // 定义web component
 const MyVueTree = defineCustomElement(MyTree);
-console.log('MyTree', MyTree);
 
 // vue 打包完的web component 形式不统一，需改造。
 // // @ts-ignore
@@ -26,5 +25,14 @@ console.log('MyTree', MyTree);
 (window as any)['VueDefineCustomElement'] = defineCustomElement;
 (window as any)['MyTreeComponent'] = MyVueTree;
 (window as any)['MyTree'] = MyTree;
-customElements.define('my-vue-tree', MyVueTree);
+
+const registerEl = (tagName: string, cla: CustomElementConstructor) => {
+    if (customElements.get(tagName)) {
+        console.warn('企图注册相同名称的标签:', tagName);
+    } else {
+        customElements.define(tagName, cla);
+    }
+};
+registerEl('my-vue-tree', MyVueTree);
+
 // document.body.append(document.createElement('my-vue-tree'));

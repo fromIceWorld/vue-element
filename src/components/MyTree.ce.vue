@@ -97,7 +97,6 @@ let index = 0;
         console.log(data, checked, indeterminate)
       }
     },
-    index : 0,
     tagNamePrefix:'my-tree',
     get configurable(){
       return {
@@ -129,7 +128,8 @@ let index = 0;
     },
     extends(option){
       const {html,css,className} = option;
-      let id = window['MyTree'].index++,
+          // web component 的索引不能递增，因为索引重置后会重复，而且cache后apply会有冲突。
+    const id = String(Math.random()).substring(2),
           tagName = `${window['MyTree'].tagNamePrefix}-${id}`;
       let config = {};
       Object.keys(html)
