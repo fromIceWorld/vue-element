@@ -2,7 +2,6 @@
 import {transformValue} from '../common.ts';
 const className = 'MyTreeComponent',
       tagNamePrefix = 'my-tree';
-let index = 0;
   export default {
     data(){
       return {

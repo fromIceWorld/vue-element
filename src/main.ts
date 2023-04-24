@@ -1,5 +1,6 @@
 import ElementPlus from 'element-plus';
 import { createApp, defineCustomElement } from 'vue';
+import MyDatePicker from './components/MyDatePicker.ce.vue';
 import MyTree from './components/MyTree.ce.vue';
 
 import App from './App.vue';
@@ -14,6 +15,7 @@ app.use(ElementPlus);
 // window['vm'] = vm;
 // 定义web component
 const MyVueTree = defineCustomElement(MyTree);
+const MyVueDatePicker = defineCustomElement(MyDatePicker);
 
 // vue 打包完的web component 形式不统一，需改造。
 // // @ts-ignore
@@ -25,6 +27,8 @@ const MyVueTree = defineCustomElement(MyTree);
 (window as any)['VueDefineCustomElement'] = defineCustomElement;
 (window as any)['MyTreeComponent'] = MyVueTree;
 (window as any)['MyTree'] = MyTree;
+(window as any)['MyDatePickerComponent'] = MyVueDatePicker;
+(window as any)['MyDatePicker'] = MyDatePicker;
 
 const registerEl = (tagName: string, cla: CustomElementConstructor) => {
     if (customElements.get(tagName)) {
@@ -34,5 +38,6 @@ const registerEl = (tagName: string, cla: CustomElementConstructor) => {
     }
 };
 registerEl('my-vue-tree', MyVueTree);
+registerEl('my-vue-date', MyVueDatePicker);
 
 // document.body.append(document.createElement('my-vue-tree'));

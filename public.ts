@@ -16,6 +16,18 @@ const components = [
             des: '基础的tree组件',
             component: 'MyTree',
         },
+        {
+            id: 'date',
+            type: 'node',
+            title: `日期选择框:
+                        Angular@10+ng-zorro-antd`,
+            color: '#41b883',
+            icon: 'fast-forward',
+            view: 3,
+            family: 'form',
+            des: '基础的下拉选择组件',
+            component: 'MyDatePicker',
+        },
     ],
     file = 'dist/assets/';
 const http = require('http'),
