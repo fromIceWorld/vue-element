@@ -1,9 +1,10 @@
 import ElementPlus from 'element-plus';
 import { createApp, defineCustomElement } from 'vue';
-import MyDatePicker from './components/MyDatePicker.ce.vue';
-import MyTree from './components/MyTree.ce.vue';
-
 import App from './App.vue';
+import MyDatePicker from './components/MyDatePicker.ce.vue';
+import MyDialog from './components/MyDialog.ce.vue';
+import MyMessage from './components/MyMessage.ce.vue';
+import MyTree from './components/MyTree.ce.vue';
 
 const app = createApp(App);
 
@@ -11,11 +12,15 @@ app.use(ElementPlus);
 // 阻止子应用挂载，会影响集成环境
 // let vm = app.mount('#app');
 
+(window as any)['VueDefineCustomElement'] = defineCustomElement;
+
 // @ts-ignore
 // window['vm'] = vm;
 // 定义web component
 const MyVueTree = defineCustomElement(MyTree);
 const MyVueDatePicker = defineCustomElement(MyDatePicker);
+const MyVueMessage = defineCustomElement(MyMessage);
+const MyVueDialog = defineCustomElement(MyDialog);
 
 // vue 打包完的web component 形式不统一，需改造。
 // // @ts-ignore
@@ -24,11 +29,19 @@ const MyVueDatePicker = defineCustomElement(MyDatePicker);
 // MyVueTree.configurable = MyTree.configurable;
 // // @ts-ignore
 // MyVueTree.configurable = MyTree.configurable;
-(window as any)['VueDefineCustomElement'] = defineCustomElement;
+
+// tree
 (window as any)['MyTreeComponent'] = MyVueTree;
 (window as any)['MyTree'] = MyTree;
+// DatePicker
 (window as any)['MyDatePickerComponent'] = MyVueDatePicker;
 (window as any)['MyDatePicker'] = MyDatePicker;
+// Message
+(window as any)['MyMessageComponent'] = MyVueMessage;
+(window as any)['MyMessage'] = MyMessage;
+// dialog
+(window as any)['MyDialogComponent'] = MyVueDialog;
+(window as any)['MyDialog'] = MyDialog;
 
 const registerEl = (tagName: string, cla: CustomElementConstructor) => {
     if (customElements.get(tagName)) {
@@ -39,5 +52,7 @@ const registerEl = (tagName: string, cla: CustomElementConstructor) => {
 };
 registerEl('my-vue-tree', MyVueTree);
 registerEl('my-vue-date', MyVueDatePicker);
+registerEl('my-vue-message', MyVueMessage);
+registerEl('my-vue-dialog', MyVueDialog);
 
 // document.body.append(document.createElement('my-vue-tree'));
