@@ -2,7 +2,7 @@ import ElementPlus from 'element-plus';
 import { createApp, defineCustomElement } from 'vue';
 import App from './App.vue';
 import MyDatePicker from './components/MyDatePicker.ce.vue';
-import MyDialog from './components/MyDialog.ce.vue';
+// import MyDialog from './components/MyDialog.ce.vue';
 import MyMessage from './components/MyMessage.ce.vue';
 import MyTree from './components/MyTree.ce.vue';
 
@@ -20,7 +20,7 @@ app.use(ElementPlus);
 const MyVueTree = defineCustomElement(MyTree);
 const MyVueDatePicker = defineCustomElement(MyDatePicker);
 const MyVueMessage = defineCustomElement(MyMessage);
-const MyVueDialog = defineCustomElement(MyDialog);
+// const MyVueDialog = defineCustomElement(MyDialog);
 
 // vue 打包完的web component 形式不统一，需改造。
 // // @ts-ignore
@@ -40,8 +40,8 @@ const MyVueDialog = defineCustomElement(MyDialog);
 (window as any)['MyMessageComponent'] = MyVueMessage;
 (window as any)['MyMessage'] = MyMessage;
 // dialog
-(window as any)['MyDialogComponent'] = MyVueDialog;
-(window as any)['MyDialog'] = MyDialog;
+// (window as any)['MyDialogComponent'] = MyVueDialog;
+// (window as any)['MyDialog'] = MyDialog;
 
 const registerEl = (tagName: string, cla: CustomElementConstructor) => {
     if (customElements.get(tagName)) {
@@ -53,6 +53,6 @@ const registerEl = (tagName: string, cla: CustomElementConstructor) => {
 registerEl('my-vue-tree', MyVueTree);
 registerEl('my-vue-date', MyVueDatePicker);
 registerEl('my-vue-message', MyVueMessage);
-registerEl('my-vue-dialog', MyVueDialog);
+// registerEl('my-vue-dialog', MyVueDialog);
 
 // document.body.append(document.createElement('my-vue-tree'));

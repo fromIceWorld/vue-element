@@ -41,19 +41,20 @@ const components = [
             des: '基础的消息提示框组件',
             component: 'MyMessage',
         },
-        {
-            id: 'dialog',
-            type: 'combo',
-            node: 'rect', // 当前节点在视图上对应的图形
-            title: `对话框:
-                        Angular@10+ng-zorro-antd`,
-            color: '#41b883',
-            icon: 'message',
-            view: 3,
-            family: 'feedback',
-            des: '基础的对话框组件',
-            component: 'MyDialog',
-        },
+        // web-component 有shadow层 style与其他组件互相影响
+        // {
+        //     id: 'dialog',
+        //     type: 'combo',
+        //     node: 'rect', // 当前节点在视图上对应的图形
+        //     title: `对话框:
+        //                 Angular@10+ng-zorro-antd`,
+        //     color: '#41b883',
+        //     icon: 'message',
+        //     view: 3,
+        //     family: 'feedback',
+        //     des: '基础的对话框组件',
+        //     component: 'MyDialog',
+        // },
     ],
     file = 'dist/assets/';
 const http = require('http'),
