@@ -1,7 +1,9 @@
 function transformValue(obj: any) {
     const { type, options, value } = obj;
-    if (['string', 'array', 'boolean'].includes(type)) {
-        return value;
+    if (type === 'string' || type === 'array' || type === 'icon') {
+        return `'${value}'`;
+    } else if (type === 'boolean' || type === 'number') {
+        return `${value}`;
     } else if (type === 'list') {
         let arr = options.map((key: string) => {
             return {
@@ -9,9 +11,11 @@ function transformValue(obj: any) {
                 key,
             };
         });
-        return arr;
+        return JSON.stringify(arr);
     } else if (type == 'json') {
-        return JSON.parse(value);
+        return value;
+    } else if (type == 'headers') {
+        return JSON.stringify(options);
     }
 }
 export { transformValue };

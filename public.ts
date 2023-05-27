@@ -10,7 +10,7 @@ const components = [
             icon: 'partition',
             title: `树形控件:
                         vue@3+element-plus`,
-            view: 3,
+            view: 0,
             family: 'tree',
             color: '#41b883',
             des: '基础的tree组件',
@@ -23,7 +23,7 @@ const components = [
                         Angular@10+ng-zorro-antd`,
             color: '#41b883',
             icon: 'fast-forward',
-            view: 3,
+            view: 0,
             family: 'form',
             des: '基础的下拉选择组件',
             component: 'MyDatePicker',
@@ -40,6 +40,18 @@ const components = [
             family: 'feedback',
             des: '基础的消息提示框组件',
             component: 'MyMessage',
+        },
+        {
+            id: 'tabs',
+            type: 'node',
+            icon: 'windows',
+            title: `tabs:
+                       Angular@10+ng-zorro-antd`,
+            color: '#41b883',
+            view: 1,
+            family: 'tabs',
+            des: '基础的tabs组件',
+            component: 'MyTabs',
         },
         // web-component 有shadow层 style与其他组件互相影响
         // {

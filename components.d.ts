@@ -10,7 +10,8 @@ export {}
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
     ElDatePicker: typeof import('element-plus/es')['ElDatePicker']
-    ElDialog: typeof import('element-plus/es')['ElDialog']
+    ElTabPane: typeof import('element-plus/es')['ElTabPane']
+    ElTabs: typeof import('element-plus/es')['ElTabs']
     ElTree: typeof import('element-plus/es')['ElTree']
     HelloWorld: typeof import('./src/components/HelloWorld.vue')['default']
     IconCommunity: typeof import('./src/components/icons/IconCommunity.vue')['default']
@@ -19,8 +20,8 @@ declare module '@vue/runtime-core' {
     IconSupport: typeof import('./src/components/icons/IconSupport.vue')['default']
     IconTooling: typeof import('./src/components/icons/IconTooling.vue')['default']
     'MyDatePicker.ce': typeof import('./src/components/MyDatePicker.ce.vue')['default']
-    'MyDialog.ce': typeof import('./src/components/MyDialog.ce.vue')['default']
     'MyMessage.ce': typeof import('./src/components/MyMessage.ce.vue')['default']
+    'MyTab.ce': typeof import('./src/components/MyTab.ce.vue')['default']
     'MyTree.ce': typeof import('./src/components/MyTree.ce.vue')['default']
   }
 }

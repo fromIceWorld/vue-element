@@ -1,13 +1,74 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <link rel="icon" href="/favicon.ico">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vite App</title>
-  </head>
-  <body>
-    <div id="app"></div>
-    <script type="module" src="/src/main.ts"></script>
-  </body>
+    <head>
+        <meta charset="UTF-8" />
+        <link rel="icon" href="/favicon.ico" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Vite App</title>
+        <script>
+            customElements.define(
+                'my-slot-0',
+                class MyComponent extends HTMLElement {
+                    template = `<span>my-slot-0<span>`;
+                    constructor() {
+                        super();
+                        let shadow = this.attachShadow({ mode: 'open' });
+                        let ele = document.createElement('div');
+                        ele.innerHTML = this.template;
+                        shadow.append(ele);
+                    }
+                }
+            );
+            customElements.define(
+                'my-slot-1',
+                class MyComponent extends HTMLElement {
+                    template = `<span>my-slot-1<span>`;
+                    constructor() {
+                        super();
+                        let shadow = this.attachShadow({ mode: 'open' });
+                        let ele = document.createElement('div');
+                        ele.innerHTML = this.template;
+                        shadow.append(ele);
+                    }
+                }
+            );
+            customElements.define(
+                'my-slot-2',
+                class MyComponent extends HTMLElement {
+                    template = `<span>my-slot-2<span>`;
+                    constructor() {
+                        super();
+                        let shadow = this.attachShadow({ mode: 'open' });
+                        let ele = document.createElement('div');
+                        ele.innerHTML = this.template;
+                        shadow.append(ele);
+                    }
+                }
+            );
+            customElements.define(
+                'my-slot-3',
+                class MyComponent extends HTMLElement {
+                    template = `<span>my-slot-3<span>`;
+                    constructor() {
+                        super();
+                        let shadow = this.attachShadow({ mode: 'open' });
+                        let ele = document.createElement('div');
+                        ele.innerHTML = this.template;
+                        shadow.append(ele);
+                    }
+                }
+            );
+        </script>
+    </head>
+    <body>
+        <div id="app"></div>
+        <script type="module" src="/src/main.ts"></script>
+        <my-vue-tabs>
+            <my-slot-0 slot="slot0"></my-slot-0>
+            <my-slot-1 slot="slot1"></my-slot-1>
+            <my-slot-2 slot="slot2"></my-slot-2>
+            <my-slot-3 slot="slot3"></my-slot-3>
+            <span>slot</span>
+        </my-vue-tabs>
+    </body>
 </html>
