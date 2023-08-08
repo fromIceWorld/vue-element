@@ -1,16 +1,29 @@
+
 <script>
+import MyTree from './components/MyTree.ce.vue'
+import MyDatePicker from './components/MyDatePicker.ce.vue';
+// import MyDialog from './components/MyDialog.ce.vue';
+import MyMessage from './components/MyMessage.ce.vue';
+import MyTabs from './components/MyTab.ce.vue';
+
 export default{
   data(){
     return {
       count:1
     }
+  },
+  components:{
+    'my-tree':MyTree,'my-data-picker':MyDatePicker,'my-message':MyMessage,'my-tabs':MyTabs
   }
 }
 </script>
 
 <template>
-    <img alt="Vue logo" class="logo" src="./assets/logo.svg" width="125" height="125" />
-    {{ count }}
+    <h1>App.vue</h1>
+    <!-- <my-tree></my-tree>
+    <my-data-picker></my-data-picker>
+    <my-message></my-message>
+    <my-tabs></my-tabs> -->
 
   
 </template>

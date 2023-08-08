@@ -1,3 +1,12 @@
+<template>
+  <el-date-picker
+      v-model="date"
+      type="datetimerange"
+      start-placeholder="开始时间"
+      end-placeholder="结束时间"
+      @change="changeTime"
+    />
+</template>
 <script>
 import {transformValue} from '../common.ts';
   export default {
@@ -12,7 +21,36 @@ import {transformValue} from '../common.ts';
         }
       }
     },
+    mounted(){
+      // 应用web components 配置项
+      this.applyData();
+    },
+    // web component 组件配置项应用到组件
+    applyData(){
+      // 判断当前组件是否运行在 web components环境
+      const shadowRoot = this.$el.parentNode;
+      if(!shadowRoot || shadowRoot.nodeType !== 11){
+        return
+      }
+      const host = this.$el.parentNode.host;
+      const option = host.option;
+      Object.keys(option).forEach(key=>{
+        this[key] = option[key]
+      })
+    },
     methods:{
+        // web component 组件配置项应用到组件
+        applyData(){
+          const shadowRoot = this.$el.parentNode;
+          if(!shadowRoot || shadowRoot.nodeType !== 11){
+            return
+          }
+          const host = this.$el.parentNode.host;
+          const option = host.option;
+          Object.keys(option).forEach(key=>{
+            this[key] = option[key]
+          })
+        },
       changeTime (data){
         const [start,end] = data;
         console.log(start,end)
@@ -60,20 +98,14 @@ import {transformValue} from '../common.ts';
         js:`class MyDatePicker${id} extends MyDatePickerComponent{
               constructor(){
                 super();
-                let vm = document.querySelector('${tagName}');
-                setTimeout(()=>{
-                  let params = ${JSON.stringify(config)};
-                  console.log(params)
-                  Object.keys(params).map(key=>{
-                    vm._instance.ctx._.data[key] = params[key]
-                  })
-                });
+              }
+              get option(){
+                return ${JSON.stringify(config)};
               }
               get date(){
-                let vm = document.querySelector('${tagName}');
                 return {
-                  start:(vm._instance.ctx._.data.date || [])[0],
-                  end:(vm._instance.ctx._.data.date || [])[1]
+                  start:(this._instance.ctx._.data.date || [])[0],
+                  end:(this._instance.ctx._.data.date || [])[1]
                 }
               }
             }
@@ -83,19 +115,8 @@ import {transformValue} from '../common.ts';
     }
   }
 </script>
-<template>
-  <el-date-picker
-      v-model="date"
-      type="datetimerange"
-      start-placeholder="开始时间"
-      end-placeholder="结束时间"
-      @change="changeTime"
-    />
-</template>
+
 <style>
 /* 打包成web component 后 样式无法穿透 自定义组件 */
 @import 'element-plus/dist/index.css';
-
-
-
 </style>

@@ -11,7 +11,36 @@ import {transformValue} from '../common.ts';
         type:'success'
       }
     },
+    mounted(){
+      // 应用web components 配置项
+      this.applyData();
+    },
+    // web component 组件配置项应用到组件
+    applyData(){
+      // 判断当前组件是否运行在 web components环境
+      const shadowRoot = this.$el.parentNode;
+      if(!shadowRoot || shadowRoot.nodeType !== 11){
+        return
+      }
+      const host = this.$el.parentNode.host;
+      const option = host.option;
+      Object.keys(option).forEach(key=>{
+        this[key] = option[key]
+      })
+    },
     methods:{
+        // web component 组件配置项应用到组件
+        applyData(){
+          const shadowRoot = this.$el.parentNode;
+          if(!shadowRoot || shadowRoot.nodeType !== 11){
+            return
+          }
+          const host = this.$el.parentNode.host;
+          const option = host.option;
+          Object.keys(option).forEach(key=>{
+            this[key] = option[key]
+          })
+        },
         open(){
             ElMessage({
                 message:this.message,
@@ -19,7 +48,7 @@ import {transformValue} from '../common.ts';
             })
         },
     },
-    tagNamePrefix:'my-date',
+    tagNamePrefix:'my-message',
     get configurable(){
       return {
         className:'MyMessage',
@@ -31,12 +60,12 @@ import {transformValue} from '../common.ts';
             type: {
                 type: 'array',
                 options: [
-                { label: 'message', value: 'message' },
+                { label: 'info', value: 'info' },
                 { label: 'success', value: 'success' },
                 { label: 'warning', value: 'warning' },
                 { label: 'error', value: 'error' },
                 ],
-                value: 'message',
+                value: 'info',
             },
         },
         css: {
@@ -69,20 +98,15 @@ import {transformValue} from '../common.ts';
         js:`class MyMessage${id} extends MyMessageComponent{
               constructor(){
                 super();
-                let vm = document.querySelector('${tagName}');
-                setTimeout(()=>{
-                  let params = ${JSON.stringify(config)};
-                  console.log(params)
-                  Object.keys(params).map(key=>{
-                    vm._instance.ctx._.data[key] = params[key]
-                  })
-                });
+              }
+              get option(){
+                return ${JSON.stringify(config)};
               }
               set message(value){
-                vm._instance.ctx._.data.message = value;
+                this._instance.ctx._.data.message = value;
               }
               set type(value){
-                vm._instance.ctx._.data.type = type;
+                this._instance.ctx._.data.type = type;
               }
             }
             customElements.define('${tagName}',MyMessage${id});
@@ -90,7 +114,8 @@ import {transformValue} from '../common.ts';
       }
     }
   }
-
-
-
 </script>
+<style>
+/* 打包成web component 后 样式无法穿透 自定义组件 */
+@import 'element-plus/dist/index.css';
+</style>
