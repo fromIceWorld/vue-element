@@ -8,7 +8,7 @@ import MyTabs from './components/MyTab.ce.vue';
 import MyTree from './components/MyTree.ce.vue';
 
 const app = createApp(App);
-
+console.log('运行 vue');
 app.use(ElementPlus);
 // 阻止子应用挂载，会影响集成环境
 // let vm = app.mount('#app');

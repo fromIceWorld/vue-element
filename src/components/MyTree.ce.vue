@@ -1,6 +1,5 @@
 <template>
   <el-tree 
-  style="width: 200px;height: 300px;"
   :show-checkbox="showCheckbox" 
   :data="tree" 
   :props="defaultProps"
@@ -9,7 +8,9 @@
   :default-expanded-keys="expandedKeys"
   :default-checked-keys="checkedkeys"
    @node-click="handleNodeClick"  
-   @check-change="handleCheckChange"/>
+   @check-change="handleCheckChange"
+   style="height: -webkit-fill-available;"
+   />
 </template>
 <script>
 import {transformValue} from '../common.ts';
@@ -131,7 +132,7 @@ import {transformValue} from '../common.ts';
         }
         const host = this.$el.parentNode.host;
         const option = host.option;
-        Object.keys(option).forEach(key=>{
+        Object.keys(option || {}).forEach(key=>{
           this[key] = option[key]
         })
       },

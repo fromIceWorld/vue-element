@@ -1,5 +1,5 @@
 <template>
-    <div style="min-height: 10px;display:inline-block;" :style="{width:width + 'px',height:height+'px'}">
+    <div style="min-height: 10px;" :style="{height:height+'px'}">
         <el-tabs :tab-position="position" v-model="activeName" class="demo-tabs" :class="{ noHeader: noHeader }" @tab-click="handleClick">
             <el-tab-pane v-for="(tab,index) in tabs" :key="tab.key" :label="tab.label" :name="tab.key">
                 <slot :name="tranSlot(index)"></slot>

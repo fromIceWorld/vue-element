@@ -9,7 +9,7 @@ const components = [
             type: 'node',
             icon: 'partition',
             title: `树形控件:
-                        vue@3+element-plus`,
+                        Vue@3+element-plus`,
             view: 0,
             family: 'tree',
             color: '#41b883',
@@ -20,7 +20,7 @@ const components = [
             id: 'date',
             type: 'node',
             title: `日期选择框:
-                        Angular@10+ng-zorro-antd`,
+                        Vue@3+element-plus`,
             color: '#41b883',
             icon: 'fast-forward',
             view: 0,
@@ -33,7 +33,7 @@ const components = [
             type: 'node',
             node: 'message', // 当前节点在视图上对应的图形
             title: `消息提示框:
-                        Angular@10+ng-zorro-antd`,
+                        Vue@3+element-plus`,
             color: '#41b883',
             icon: 'bell',
             view: 3,
@@ -46,7 +46,7 @@ const components = [
             type: 'node',
             icon: 'windows',
             title: `tabs:
-                       Angular@10+ng-zorro-antd`,
+                        Vue@3+element-plus`,
             color: '#41b883',
             view: 1,
             family: 'tabs',
@@ -106,7 +106,6 @@ let componentsConfig = components.map((item) => {
         area,
     };
 });
-console.log('files', files);
 request(
     {
         ...options,

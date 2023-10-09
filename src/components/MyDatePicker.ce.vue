@@ -5,6 +5,7 @@
       start-placeholder="开始时间"
       end-placeholder="结束时间"
       @change="changeTime"
+      style="width: -webkit-fill-available;"
     />
 </template>
 <script>
