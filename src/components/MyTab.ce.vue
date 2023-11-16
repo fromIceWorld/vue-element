@@ -19,9 +19,7 @@ export default {
             tabs : [
                 {label:'tab0',key:'tab0'},
                 {label:'tab1',key:'tab1'},
-                ],
-            width: 800,
-            height:400    
+                ],    
         }
     },
     // web component 组件配置项应用到组件
@@ -84,31 +82,11 @@ export default {
                     type: 'list',
                     options: ['tab0', 'tab1'],
                     value: 'tab0',
-                },
-                width: {
-                  type: 'number',
-                  value: 800,
-                  postfix: 'px',
-                },
-                height: {
-                  type: 'number',
-                  value: 400,
-                  postfix: 'px',
-                },
+                }
             },
             css: {
                 classes: '',
                 style: {},
-                width: {
-                  type: 'number',
-                  value: 0,
-                  postfix: 'px',
-                },
-                height: {
-                  type: 'number',
-                  value: 0,
-                  postfix: 'px',
-                },
             },
             component: {
                 event: [],
