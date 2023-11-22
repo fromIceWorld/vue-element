@@ -52,13 +52,15 @@ import {transformValue} from '../common.ts';
     get configurable(){
       return {
         className:'MyMessage',
-        html:{
+        html:[{
+          name:'基础配置',
+          config:{
             message:{
                 type: 'string',
                 value: 'this is a message.',
             },
             type: {
-                type: 'array',
+                type: 'select',
                 options: [
                 { label: 'info', value: 'info' },
                 { label: 'success', value: 'success' },
@@ -67,11 +69,8 @@ import {transformValue} from '../common.ts';
                 ],
                 value: 'info',
             },
-        },
-        css: {
-          classes: '',
-          style: {},
-        },
+        }
+        }],
         component: {
           event: [],
           methods: [{ label: 'open', value: 'open' },],
@@ -81,14 +80,14 @@ import {transformValue} from '../common.ts';
       }
     },
     extends(option){
-      const {html,css,className} = option;
+      const {html,className} = option;
           // web component 的索引不能递增，因为索引重置后会重复，而且cache后apply会有冲突。
     const id = String(Math.random()).substring(2),
           tagName = `${window['MyMessage'].tagNamePrefix}-${id}`;
       let config = {};
-      Object.keys(html)
+      Object.keys(html[0].config)
         .map((key) => {
-          config[key] = transformValue(html[key])
+          config[key] = transformValue(html[0].config[key])
         })
         .join('\n');
       return {

@@ -1,7 +1,7 @@
 <template>
     <div style="min-height: 10px;" :style="{height:height+'px'}">
         <el-tabs :tab-position="position" v-model="activeName" class="demo-tabs" :class="{ noHeader: noHeader }" @tab-click="handleClick">
-            <el-tab-pane v-for="(tab,index) in tabs" :key="tab.key" :label="tab.label" :name="tab.key">
+            <el-tab-pane v-for="(tab,index) in tabs" :key="tab.value" :label="tab.label" :name="tab.value">
                 <slot :name="tranSlot(index)"></slot>
             </el-tab-pane>
         </el-tabs>
@@ -17,8 +17,8 @@ export default {
             position:'top',
             activeName:'tab0',
             tabs : [
-                {label:'tab0',key:'tab0'},
-                {label:'tab1',key:'tab1'},
+                {label:'tab0',value:'tab0'},
+                {label:'tab1',value:'tab1'},
                 ],    
         }
     },
@@ -63,13 +63,16 @@ export default {
     get configurable(){
       return {
             className: 'MyTabs', // 暴露出的组件class名称【组件可以注册到window上，并把配置同时暴露】
-            html: {
+            html: [
+              {
+                name:'基础配置',
+                config:{
                 noHeader: {
                   type: 'boolean',
                   value: false,
                 },
                 position: {
-                  type: 'array',
+                  type: 'select',
                   options: [
                       { value: 'top', label: 'top' },
                       { value: 'left', label: 'left' },
@@ -79,15 +82,13 @@ export default {
                   value: 'top',
                 },
                 tabs: {
-                    type: 'list',
-                    options: ['tab0', 'tab1'],
+                    type: 'tags',
+                    options: [{label:'tab0',value:'tab0'}, {label:'tab1',value:'tab1'}],
                     value: 'tab0',
                 }
-            },
-            css: {
-                classes: '',
-                style: {},
-            },
+            }
+              }
+            ],
             component: {
                 event: [],
                 methods: [],
@@ -100,13 +101,13 @@ export default {
     // web component 的索引不能递增，因为索引重置后会重复，而且cache后apply会有冲突。
     const id = String(Math.random()).substring(2),
       tagName = `${MyTabs.tagNamePrefix}-${id}`;
-    const { html, css, className } = option;
+    const { html, className } = option;
     let config = {};
-      Object.keys(html)
-        .map((key) => {
-          config[key] = transformValue(html[key])
-        })
-        .join('\n');
+    const {noHeader,position,tabs} = html[0].config;
+    config['noHeader'] = noHeader.value;
+    config['position'] = position.value;
+    config['tabs'] = tabs.options;
+    config['activeName'] = tabs.value;
     return {
       html: `<${tagName} _data="_instance.ctx._.data" _methods="_instance.ctx"></${tagName}>`,
       js: `class MyTabs${id} extends MyTabsComponent{

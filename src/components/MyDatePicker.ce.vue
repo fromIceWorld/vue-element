@@ -63,16 +63,17 @@ import {transformValue} from '../common.ts';
     get configurable(){
       return {
         className:'MyDatePicker',
-        html:{
-          date:{
-            type: 'string',
-            value: '',
-          },
-        },
-        css: {
-          classes: '',
-          style: {},
-        },
+        html:[
+          {
+            name:'基础配置',
+            config:{
+              date:{
+                type: 'string',
+                value: '',
+              },
+            }
+          }
+        ],
         component: {
           event: [{ label: 'change', value: 'change' }],
           methods: [],
@@ -82,14 +83,14 @@ import {transformValue} from '../common.ts';
       }
     },
     extends(option){
-      const {html,css,className} = option;
+      const {html,className} = option;
           // web component 的索引不能递增，因为索引重置后会重复，而且cache后apply会有冲突。
     const id = String(Math.random()).substring(2),
           tagName = `${window['MyDatePicker'].tagNamePrefix}-${id}`;
       let config = {};
-      Object.keys(html)
+      Object.keys(html[0].config)
         .map((key) => {
-          config[key] = transformValue(html[key])
+          config[key] = transformValue(html[0].config[key])
         })
         .join('\n');
       return {

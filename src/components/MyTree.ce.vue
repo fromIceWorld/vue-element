@@ -122,7 +122,6 @@ import {transformValue} from '../common.ts';
       // 应用web components 配置项
       this.applyData();
     },
-    
     methods:{
       // web component 组件配置项应用到组件
       applyData(){
@@ -153,7 +152,9 @@ import {transformValue} from '../common.ts';
     get configurable(){
       return {
         className:'MyTree',
-        html:{
+        html:[{
+          name:'基础配置',
+          config:{
           showCheckbox:{
             type: 'boolean',
             value: false,
@@ -162,21 +163,8 @@ import {transformValue} from '../common.ts';
             type:'json',
             value:'[{"label":"Level one 1","id":"Level one 1","level":"tab0","children":[{"label":"Level two 1-1","id":"Level two 1-1","level":"tab1","children":[{"label":"Level three 1-1-1","id":"Level three 1-1-1","level":"tab2"}]}]},{"label":"Level one 2","id":"Level one 2","level":"tab0","children":[{"label":"Level two 2-1","id":"Level two 2-1","level":"tab1","children":[{"label":"Level three 2-1-1","id":"Level three 2-1-1","level":"tab2"}]},{"label":"Level two 2-2","id":"Level two 2-2","level":"tab1","children":[{"label":"Level three 2-2-1","id":"Level three 2-2-1","level":"tab2"}]}]},{"label":"Level one 3","id":"Level one 3","level":"tab0","children":[{"label":"Level two 3-1","id":"Level two 3-1","level":"tab1","children":[{"label":"Level three 3-1-1","id":"Level three 3-1-1","level":"tab2"}]},{"label":"Level two 3-2","id":"Level two 3-2","level":"tab1","children":[{"label":"Level three 3-2-1","id":"Level three 3-2-1","level":"tab2"}]}]}]' 
           },
-      },
-      css: {
-          classes: '',
-          style: {},
-          width: {
-            type: 'number',
-            value: 0,
-            postfix: 'px',
-          },
-          height: {
-            type: 'number',
-            value: 0,
-            postfix: 'px',
-          },
-        },
+      }
+        }],
         component: {
           event: [{ label: 'click', value: 'click' }],
           methods: [
@@ -188,14 +176,14 @@ import {transformValue} from '../common.ts';
         },
     }},
     extends(option){
-      const {html,css,className} = option;
+      const {html,className} = option;
           // web component 的索引不能递增，因为索引重置后会重复，而且cache后apply会有冲突。
     const id = String(Math.random()).substring(2),
           tagName = `${window['MyTree'].tagNamePrefix}-${id}`;
       let config = {};
-      Object.keys(html)
+      Object.keys(html[0].config)
         .map((key) => {
-          config[key] = transformValue(html[key])
+          config[key] = transformValue(html[0].config[key])
         })
         .join('\n');
       return {

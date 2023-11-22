@@ -1,26 +1,28 @@
 function transformValue(obj: any) {
     const { type, options, value } = obj;
     if (
-        type === 'string' ||
-        type === 'array' ||
-        type === 'icon' ||
-        type === 'boolean' ||
-        type === 'number'
+        [
+            'color',
+            'string',
+            'slider',
+            'select',
+            'extend-select',
+            'radio',
+            'tags',
+            'icon',
+            'iconLink',
+            'headers',
+            'boolean',
+            'number',
+            'colors',
+        ].includes(type)
     ) {
         return value;
-    } else if (type === 'list') {
-        let arr = options.map((s: string) => {
-            const [l, k] = s.split(':');
-            return {
-                label: l,
-                key: k || l,
-            };
-        });
-        return arr;
     } else if (type == 'json') {
         return JSON.parse(value);
-    } else if (type == 'headers') {
-        return options;
+    } else {
+        console.error(`类型未知:${type}`);
+        return;
     }
 }
 export { transformValue };
