@@ -7,7 +7,7 @@ const components = [
         {
             id: 'tree',
             type: 'node',
-            icon: 'partition',
+            icon: '#icon-shuzhuangtu',
             title: `树形控件:
                         Vue@3+element-plus`,
             view: 0,
@@ -22,7 +22,7 @@ const components = [
             title: `日期选择框:
                         Vue@3+element-plus`,
             color: '#41b883',
-            icon: 'fast-forward',
+            icon: '#icon-time-selector',
             view: 0,
             family: 'form',
             des: '基础的下拉选择组件',
@@ -35,7 +35,7 @@ const components = [
             title: `消息提示框:
                         Vue@3+element-plus`,
             color: '#41b883',
-            icon: 'bell',
+            icon: '#icon-lingdang',
             view: 3,
             family: 'feedback',
             des: '基础的消息提示框组件',
@@ -44,7 +44,7 @@ const components = [
         {
             id: 'tabs',
             type: 'node',
-            icon: 'windows',
+            icon: '#icon-Tabs',
             title: `tabs:
                         Vue@3+element-plus`,
             color: '#41b883',
@@ -68,8 +68,9 @@ const components = [
         //     component: 'MyDialog',
         // },
     ],
-    file = 'dist/assets/';
-const http = require('http'),
+    folderPath = './dist/assets';
+const fs = require('fs'),
+    path = require('path'),
     request = require('request');
 const filesName = [
     {
@@ -78,49 +79,58 @@ const filesName = [
     },
     'index.css',
 ];
+const area = 'vue-element';
+components.map((item) => {
+    item['filesName'] = filesName;
+    item['area'] = area;
+});
 let options = {
     url: 'http://127.0.0.1:3000/upload',
     method: 'POST',
-    json: true,
     headers: {
-        'content-type': 'application/json',
+        'content-type': 'multipart/form-data',
     },
-    body: {},
-};
-let files = [],
-    area = 'vue-element';
-filesName.forEach((fileName) => {
-    let name = typeof fileName == 'string' ? fileName : fileName.name;
-    let content = require('fs').readFileSync(file + name);
-    let buffer = Buffer.from(content);
-    //@ts-ignore
-    files.push({
-        name,
-        content: buffer.toString(),
-    });
-});
-let componentsConfig = components.map((item) => {
-    return {
-        ...item,
-        filesName,
+    formData: {
+        files: [],
         area,
-    };
-});
-request(
-    {
-        ...options,
-        body: {
-            code: 200,
-            data: {
-                components: componentsConfig,
-                content: files,
-                area,
-            },
-        },
+        components: JSON.stringify(components),
     },
-    (err, res, body) => {
-        if (res.statusCode === 200) {
-            console.log(filesName, res.statusCode, '上传完成');
+};
+// 递归遍历文件夹中的所有文件
+function uploadFolder(folderPath, dir) {
+    const files = fs.readdirSync(folderPath);
+    files.forEach((file) => {
+        const filePath = folderPath + '/' + file;
+        // 判断是否为文件夹
+        if (fs.statSync(filePath).isDirectory()) {
+            // 递归上传子文件夹
+            uploadFolder(filePath, dir + '/' + file);
+        } else {
+            // 上传文件
+            uploadFile(filePath, dir, file);
         }
+    });
+}
+
+// 缓存上传文件
+function uploadFile(filePath, dir, fileName) {
+    const content = fs.readFileSync(path.resolve(__dirname, filePath));
+    // @ts-ignore
+    options.formData.files.push({
+        content: Buffer.from(content).toString(),
+        dir,
+        fileName,
+    });
+}
+// 将文件缓存
+uploadFolder(folderPath, '');
+console.log('共上传文件数：', options.formData.files.length);
+//@ts-ignore
+options.formData.files = JSON.stringify(options.formData.files);
+request(options, (err, res, body) => {
+    if (res.statusCode === 200) {
+        console.log('上传完成');
+    } else {
+        console.log(body);
     }
-);
+});
