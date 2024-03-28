@@ -84,7 +84,7 @@ export default {
                 tabs: {
                     type: 'tags',
                     options: [{label:'tab0',value:'tab0'}, {label:'tab1',value:'tab1'}],
-                    value: 'tab0',
+                    value:'tab0'
                 }
             }
               }
@@ -93,7 +93,6 @@ export default {
                 event: [],
                 methods: [],
                 data: ['activeName'],
-                params: [],
             },
         }
     },
@@ -109,7 +108,7 @@ export default {
     config['tabs'] = tabs.options;
     config['activeName'] = tabs.value;
     return {
-      html: `<${tagName} _data="_instance.ctx._.data" _methods="_instance.ctx"></${tagName}>`,
+      html: `<${tagName}></${tagName}>`,
       js: `class MyTabs${id} extends MyTabsComponent{
               constructor(){
                 super();
@@ -119,6 +118,9 @@ export default {
               }
               set activeName(value){
                 this._instance.ctx._.data.activeName = value;
+              }
+              get activeName(){
+                return this._instance.ctx._.data.activeName;
               }
          }
          customElements.define('${tagName}',MyTabs${id});

@@ -14,12 +14,6 @@ import {transformValue} from '../common.ts';
     data(){
       return {
         date:null,
-        get time(){
-        return {
-          start:(this.date || [])[0],
-          end:(this.date || [])[1]
-        }
-        }
       }
     },
     mounted(){
@@ -54,7 +48,6 @@ import {transformValue} from '../common.ts';
         },
       changeTime (data){
         const [start,end] = data;
-        console.log(start,end)
         this.$emit('change')
       },
 
@@ -78,7 +71,6 @@ import {transformValue} from '../common.ts';
           event: [{ label: 'change', value: 'change' }],
           methods: [],
           data: ['time'],
-          params: [],
         },
       }
     },
@@ -96,7 +88,7 @@ import {transformValue} from '../common.ts';
       return {
         tagName:`${tagName}`,
         // vue 前缀
-        html:`<${tagName} _data="_instance.ctx._.data" _methods="_instance.ctx"></${tagName}>`,
+        html:`<${tagName}></${tagName}>`,
         js:`class MyDatePicker${id} extends MyDatePickerComponent{
               constructor(){
                 super();
@@ -104,11 +96,11 @@ import {transformValue} from '../common.ts';
               get option(){
                 return ${JSON.stringify(config)};
               }
-              get date(){
-                return {
-                  start:(this._instance.ctx._.data.date || [])[0],
-                  end:(this._instance.ctx._.data.date || [])[1]
-                }
+              get time(){
+                return this._instance.ctx._.data.date
+              }
+              set time(value){
+                this._instance.ctx._.data.date = value
               }
             }
             customElements.define('${tagName}',MyDatePicker${id});

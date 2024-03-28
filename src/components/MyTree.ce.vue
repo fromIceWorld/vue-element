@@ -110,12 +110,6 @@ import {transformValue} from '../common.ts';
             ],
           },
         ],
-        get levelParams(){
-          return {level:this.level}
-          },
-        get idParams(){
-            return {id:this.id}
-          }
       }
     },
     mounted(){
@@ -169,10 +163,8 @@ import {transformValue} from '../common.ts';
           event: [{ label: 'click', value: 'click' }],
           methods: [
             { label: 'setTree', value: 'setTree' },
-            { label: 'setLoading', value: 'setLoading' },
           ],
-          data: ['tree','level','id','levelParams','idParams'],
-          params: [],
+          data: ['tree','level','id'],
         },
     }},
     extends(option){
@@ -189,13 +181,34 @@ import {transformValue} from '../common.ts';
       return {
         tagName:`${tagName}`,
         // vue 前缀
-        html:`<${tagName} _data="_instance.ctx._.data" _methods="_instance.ctx"></${tagName}>`,
+        html:`<${tagName}></${tagName}>`,
         js:`class MyTree${id} extends MyTreeComponent{
               constructor(){
                 super();
               }
               get option(){
                 return ${JSON.stringify(config)};
+              }
+              setTree({tree}){
+                this._instance.ctx._.data.tree = tree || []
+              }
+              set tree(value){
+                this._instance.ctx._.data.tree = value || []
+              }
+              get tree(){
+                return this._instance.ctx._.data.tree
+              }
+              set level(value){
+                this._instance.ctx._.data.level = value
+              }
+              get level(){
+                return this._instance.ctx._.data.level
+              }
+              set id(value){
+                this._instance.ctx._.data.id = value
+              }
+              get id(){
+                return this._instance.ctx._.data.id
               }
             }
             customElements.define('${tagName}',MyTree${id});

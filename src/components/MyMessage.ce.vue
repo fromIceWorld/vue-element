@@ -74,8 +74,7 @@ import {transformValue} from '../common.ts';
         component: {
           event: [],
           methods: [{ label: 'open', value: 'open' },],
-          data: [],
-          params: [],
+          data: ['message','type'],
         },
       }
     },
@@ -93,7 +92,7 @@ import {transformValue} from '../common.ts';
       return {
         tagName:`${tagName}`,
         // vue 前缀
-        html:`<${tagName} _data="_instance.ctx._.data" _methods="_instance.ctx"></${tagName}>`,
+        html:`<${tagName}></${tagName}>`,
         js:`class MyMessage${id} extends MyMessageComponent{
               constructor(){
                 super();
@@ -101,11 +100,20 @@ import {transformValue} from '../common.ts';
               get option(){
                 return ${JSON.stringify(config)};
               }
+              open(){
+                this._instance.ctx.open();
+              }
+              get message(){
+                return this._instance.data.message;
+              }
               set message(value){
-                this._instance.ctx._.data.message = value;
+                this._instance.data.message = value;
+              }
+              get type(){
+                return this._instance.data.type;
               }
               set type(value){
-                this._instance.ctx._.data.type = type;
+                this._instance.data.type = value;
               }
             }
             customElements.define('${tagName}',MyMessage${id});

@@ -6,6 +6,7 @@
 const components = [
         {
             id: 'tree',
+            name: '树形控件',
             type: 'node',
             icon: '#icon-shuzhuangtu',
             title: `树形控件:
@@ -18,6 +19,7 @@ const components = [
         },
         {
             id: 'date',
+            name: '日期选择框',
             type: 'node',
             title: `日期选择框:
                         Vue@3+element-plus`,
@@ -30,9 +32,10 @@ const components = [
         },
         {
             id: 'message',
+            name: '消息提示',
             type: 'node',
             node: 'message', // 当前节点在视图上对应的图形
-            title: `消息提示框:
+            title: `消息提示:
                         Vue@3+element-plus`,
             color: '#41b883',
             icon: '#icon-lingdang',
@@ -43,6 +46,7 @@ const components = [
         },
         {
             id: 'tabs',
+            name: 'tab组件',
             type: 'node',
             icon: '#icon-Tabs',
             title: `tabs:

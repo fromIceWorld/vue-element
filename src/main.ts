@@ -8,7 +8,6 @@ import MyTabs from './components/MyTab.ce.vue';
 import MyTree from './components/MyTree.ce.vue';
 
 const app = createApp(App);
-console.log('运行 vue');
 app.use(ElementPlus);
 // 阻止子应用挂载，会影响集成环境
 // let vm = app.mount('#app');
@@ -59,3 +58,4 @@ registerEl('my-vue-tabs', MyVueTabs);
 // registerEl('my-vue-dialog', MyVueDialog);
 
 // document.body.append(document.createElement('my-vue-tree'));
+console.log('vue@3.2.47 + element-plus@2.3.0 应用加载。');
