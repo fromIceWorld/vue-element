@@ -14765,3 +14765,27 @@
     margin-left: 4px;
     display: inline-block;
 }
+/* 引入全局样式，匹配 pop的样式 */
+.dark-night-blue .el-date-range-picker {
+    background: rgba(17, 23, 74, 0.902);
+}
+.dark-night-blue .el-picker-panel__footer {
+    background: rgba(17, 23, 74, 0.902);
+}
+.dark-night-blue .el-input__wrapper {
+    background-image: linear-gradient(
+            180deg,
+            #2383de 2%,
+            rgba(35, 131, 222, 0.44) 100%
+        ),
+        linear-gradient(#021c3f, #021c3f);
+}
+.dark-night-blue input {
+    color: #9bc6ff;
+}
+.dark-night-blue .el-time-panel{
+    background:rgba(17, 23, 74, .902) ;
+    }
+  .dark-night-blue .is-active{
+    color: white !important;
+    }

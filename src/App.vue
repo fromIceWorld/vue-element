@@ -9,7 +9,7 @@ import MyTabs from './components/MyTab.ce.vue';
 export default{
   data(){
     return {
-      count:1
+      count:2
     }
   },
   components:{
@@ -20,8 +20,9 @@ export default{
 
 <template>
     <h1>App.vue</h1>
-    <!-- <my-tree></my-tree>
     <my-data-picker></my-data-picker>
+    <!-- <my-tree></my-tree>
+   
     <my-message></my-message>
     <my-tabs></my-tabs> -->
 

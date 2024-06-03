@@ -13,6 +13,8 @@
    />
 </template>
 <script>
+import 'element-plus/dist/index.css';
+
 import {transformValue} from '../common.ts';
   export default {
     data(){
@@ -113,6 +115,7 @@ import {transformValue} from '../common.ts';
       }
     },
     mounted(){
+      console.log('mounted')
       // 应用web components 配置项
       this.applyData();
     },
@@ -221,7 +224,6 @@ import {transformValue} from '../common.ts';
 <style>
 /* 打包成web component 后 样式无法穿透 自定义组件 */
 @import 'element-plus/dist/index.css';
-
 
 
 </style>

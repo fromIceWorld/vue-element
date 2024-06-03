@@ -1,11 +1,16 @@
 <template>
   <el-date-picker
       v-model="date"
-      type="datetimerange"
       start-placeholder="开始时间"
       end-placeholder="结束时间"
       @change="changeTime"
       style="width: -webkit-fill-available;"
+      class="data-picker"
+      :popper-class="theme"
+      :class="theme"
+      :format="format"
+      :value-format="format"
+      :type="type"
     />
 </template>
 <script>
@@ -13,8 +18,11 @@ import {transformValue} from '../common.ts';
   export default {
     data(){
       return {
+        type:"daterange",
+        format:'YYYY-MM-DD',
         date:null,
-      }
+        theme:"dark-night-blue" 
+     }
     },
     mounted(){
       // 应用web components 配置项
@@ -61,8 +69,36 @@ import {transformValue} from '../common.ts';
             name:'基础配置',
             config:{
               date:{
-                type: 'string',
-                value: '',
+                type: 'json',
+                value: '["2024","2024"]',
+              },
+              theme:{
+                type: 'select',
+                options:[
+                  {label:'默认',value:''},
+                  {label:'暗夜蓝',value:'dark-night-blue'},
+                ],
+                value:''
+              },
+              type:{
+                type: 'select',
+                options:[
+                  {label:'日期选择',value:''},
+                  {label:'daterange',value:'daterange'},
+                  {label:'datetimerange',value:'datetimerange'},
+                  {label:'monthrange',value:'monthrange'},
+                ],
+                value:'daterange'
+              },
+              format:{
+                type: 'extend-select',
+                options:[
+                  {label:'YYYY-MM',value:'YYYY-MM'},
+                  {label:'YYYY/MM/DD',value:'YYYY/MM/DD'},
+                  {label:'YYYY-MM-DD',value:'YYYY-MM-DD'},
+                  {label:'YYYY-MM-DD HH:mm:ss',value:'YYYY-MM-DD HH:mm:ss'},
+                ],
+                value:'YYYY/MM/DD'
               },
             }
           }
@@ -113,4 +149,26 @@ import {transformValue} from '../common.ts';
 <style>
 /* 打包成web component 后 样式无法穿透 自定义组件 */
 @import 'element-plus/dist/index.css';
+.dark-night-blue{
+  width: -webkit-fill-available;
+    border: 1px solid #2477d6;
+    opacity: .8;
+    border-radius: 4px;
+    box-shadow: none !important;
+    color: #9bc6ff;
+    background-image: linear-gradient(0deg, #095bb8 1%, rgb(7 7 8 / 44%) 100%), linear-gradient(#021c3f, #021c3f);
+}
+.dark-night-blue .el-input__icon{
+    color: #1290e8;
+    font-size: 16px;
+   }
+.dark-night-blue .el-range-separator{
+    color: #9bc6ff;
+   }
+.dark-night-blue .el-range-input{
+    color: #9bc6ff;
+   }
+   .dark-night-blue.el-range-editor {
+    border: 2px solid #2f77d4;
+   }
 </style>
