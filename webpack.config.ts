@@ -24,7 +24,7 @@ module.exports = {
         ],
     },
     output: {
-        filename: 'assets/[name].js',
+        filename: 'assets/main.js',
         path: path.resolve(__dirname, './dist'),
     },
     devServer: {

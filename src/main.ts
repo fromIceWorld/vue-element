@@ -9,7 +9,6 @@ const app = createApp(App);
 app.use(ElementPlus, {
     locale: zhCn,
 });
-debugger;
 // 阻止子应用挂载，会影响集成环境
 app.mount('#app');
 

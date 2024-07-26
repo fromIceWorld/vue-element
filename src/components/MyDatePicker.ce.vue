@@ -105,8 +105,11 @@ import {transformValue} from '../common.ts';
         ],
         component: {
           event: [{ label: 'change', value: 'change' }],
-          methods: [],
-          data: ['time'],
+          methods: {
+            prefix:'',
+            value:[]
+          },
+          data: {prefix:'__vue_app__._instance.data',value:['time']},
         },
       }
     },
